@@ -1,7 +1,7 @@
-const glopalError = (err, res, req, next) => {
+const glopalError = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
-  res.status(err.statusCode).josn({
+  res.status(err.statusCode).json({
     status: err.status,
     error: err,
     message: err.message,
