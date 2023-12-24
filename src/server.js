@@ -2,6 +2,7 @@ const exprees = require("express");
 const morgan = require("morgan");
 const dbConnection = require("./config/dbConnction");
 const ApiError = require("./utils");
+const routes = require("./routes");
 
 const app = exprees();
 
@@ -10,6 +11,9 @@ dbConnection();
 
 // some middlewers
 process.env.MODE === "devlopment" ? app.use(morgan("dev")) : "";
+
+// routes
+app.use("/api/v1", routes);
 
 app.all("*", (req, res, next) => {
   next(
