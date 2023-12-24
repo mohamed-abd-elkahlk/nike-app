@@ -37,22 +37,24 @@ exports.deleteOneById = (Model) =>
       );
     }
   });
-exports.getAll = Model = asyncHandler(async (req, res, next) => {
-  const docCount = Model.countDocuments();
-  const apiFeatures = new ApiFeatures(Model.find(), req.query)
-    .filter()
-    .limitFildes()
-    .pagenate(docCount)
-    .serch()
-    .sort();
-  const { pagenation, mongooseQuery } = apiFeatures;
-  const document = await mongooseQuery;
-  if (!document) {
-    return next(new ApiError(`no data found`, 404));
-  }
-  res.status(200).json({
-    results: docCount,
-    pagenation,
-    data: document,
+
+exports.getAll = (Model) =>
+  asyncHandler(async (req, res, next) => {
+    const docCount = Model.countDocuments();
+    const apiFeatures = new ApiFeatures(Model.find(), req.query)
+      .filter()
+      .limitFildes()
+      .pagenate(docCount)
+      .serch()
+      .sort();
+    const { pagenation, mongooseQuery } = apiFeatures;
+    const document = await mongooseQuery;
+    if (!document) {
+      return next(new ApiError(`no data found`, 404));
+    }
+    res.status(200).json({
+      results: docCount,
+      pagenation,
+      data: document,
+    });
   });
-});

@@ -7,10 +7,19 @@ const {
   updateCategory,
 } = require("../services/category.service");
 
-router.route("/").get(getAllCategories).post(createCategory);
+const {
+  createCategoryValidator,
+  deleteCategoryValidator,
+  getOneCategoryValidator,
+  updateCategoryValidator,
+} = require("../utils/validation/category.validation");
+router
+  .route("/")
+  .get(getAllCategories)
+  .post(createCategoryValidator, createCategory);
 router
   .route("/:id")
-  .get(getOneCategory)
-  .put(updateCategory)
-  .delete(deleteCategory);
+  .get(getOneCategoryValidator, getOneCategory)
+  .put(updateCategoryValidator, updateCategory)
+  .delete(deleteCategoryValidator, deleteCategory);
 module.exports = router;

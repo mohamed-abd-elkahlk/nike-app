@@ -6,11 +6,19 @@ const {
   getOneSubCategory,
   updateSubCategory,
 } = require("../services/subCategory.service");
-
-router.route("/").get(getAllSubCategories).post(createSubCategory);
+const {
+  createSubCategoryValidator,
+  deleteSubCategoryValidator,
+  getOneSubCategoryValidator,
+  updateSubCategoryValidator,
+} = require("../utils/validation/subCategory.validation");
+router
+  .route("/")
+  .get(getAllSubCategories)
+  .post(createSubCategoryValidator, createSubCategory);
 router
   .route("/:id")
-  .get(getOneSubCategory)
-  .put(updateSubCategory)
-  .delete(deleteSubCategory);
+  .get(getOneSubCategoryValidator, getOneSubCategory)
+  .put(updateSubCategoryValidator, updateSubCategory)
+  .delete(deleteSubCategoryValidator, deleteSubCategory);
 module.exports = router;
