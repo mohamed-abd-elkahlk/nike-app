@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const ApiError = require("../utils");
-const getOneById = (Model) =>
+const { ApiError, ApiFeatures } = require("../utils");
+exports.getOneById = (Model) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const document = await Model.findById(id);
@@ -10,13 +10,13 @@ const getOneById = (Model) =>
     res.status(200).json({ data: document });
   });
 
-const createOne = (Model) =>
+exports.createOne = (Model) =>
   asyncHandler(async (req, res, next) => {
     const document = await Model.create(req.body);
     res.status(201).json({ data: document });
   });
 
-const updateOneById = (Model) =>
+exports.updateOneById = (Model) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const document = await Model.findByIdAndUpdate(id, req.body, { new: true });
@@ -27,7 +27,7 @@ const updateOneById = (Model) =>
     }
   });
 
-const deleteOneById = (Model) =>
+exports.deleteOneById = (Model) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const document = await Model.findByIdAndDelete(id);
@@ -37,3 +37,22 @@ const deleteOneById = (Model) =>
       );
     }
   });
+exports.getAll = Model = asyncHandler(async (req, res, next) => {
+  const docCount = Model.countDocuments();
+  const apiFeatures = new ApiFeatures(Model.find(), req.query)
+    .filter()
+    .limitFildes()
+    .pagenate(docCount)
+    .serch()
+    .sort();
+  const { pagenation, mongooseQuery } = apiFeatures;
+  const document = await mongooseQuery;
+  if (!document) {
+    return next(new ApiError(`no data found`, 404));
+  }
+  res.status(200).json({
+    results: docCount,
+    pagenation,
+    data: document,
+  });
+});

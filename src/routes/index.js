@@ -4,3 +4,5 @@ const subCategoryRoute = require("./subCategory.routes");
 
 router.use("/category", categoryRoute);
 router.use("/subCategory", subCategoryRoute);
+
+module.exports = router;

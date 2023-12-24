@@ -86,6 +86,4 @@ class ApiFeatures {
   }
 }
 
-module.exports = ApiFeatures;
-
-module.exports = ApiError;
+module.exports = { ApiError, ApiFeatures };

@@ -1,7 +1,7 @@
 const exprees = require("express");
 const morgan = require("morgan");
 const dbConnection = require("./config/dbConnction");
-const ApiError = require("./utils");
+const { ApiError } = require("./utils");
 const routes = require("./routes");
 
 const app = exprees();
