@@ -11,7 +11,7 @@ dbConnection();
 
 // some middlewers
 process.env.MODE === "devlopment" ? app.use(morgan("dev")) : "";
-
+app.use(exprees.json());
 // routes
 app.use("/api/v1", routes);
 

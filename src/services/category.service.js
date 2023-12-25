@@ -9,4 +9,4 @@ exports.deleteCategory = Handler.deleteOneById(Category);
 
 exports.getOneCategory = Handler.getOneById(Category);
 
-exports.getAllCategories = Handler.createOne(Category);
+exports.getAllCategories = Handler.getAll(Category);

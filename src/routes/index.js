@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const router = require("express").Router({ caseSensitive: true });
 const categoryRoute = require("./category.routes");
 const subCategoryRoute = require("./subCategory.routes");
 

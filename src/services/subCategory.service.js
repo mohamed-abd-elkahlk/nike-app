@@ -9,4 +9,4 @@ exports.deleteSubCategory = Handler.deleteOneById(SubCategory);
 
 exports.getOneSubCategory = Handler.getOneById(SubCategory);
 
-exports.getAllSubCategories = Handler.createOne(SubCategory);
+exports.getAllSubCategories = Handler.getAll(SubCategory);

@@ -17,20 +17,11 @@ exports.createSubCategoryValidator = [
         }
       })
     ),
-  // TODO: add function that make sure that sub category in under the catgory hod
-  // .custom((val, { req }) => SubCategory.find({ id: val }).then((doc)=>{
-  //     if(!doc){
-  //         throw new Error("")
-  //     }
-  // })),
   validationMiddleware,
 ];
 
 exports.updateSubCategoryValidator = [
-  check("name")
-    .optional()
-    .withMessage("name field must contain at least 3 charcter")
-    .isString(),
+  check("name").optional().isString(),
   check("id").isMongoId().withMessage("inValid mongoo id "),
   validationMiddleware,
 ];

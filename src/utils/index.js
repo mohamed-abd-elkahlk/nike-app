@@ -15,7 +15,7 @@ class ApiFeatures {
   filter() {
     // filteraing ->
     const quryObj = { ...this.quryString };
-    const exclueds = ["page", "sort", "fildes", "limit", "q"];
+    const exclueds = ["page", "sort", "fildes", "limit", "keyword"];
     exclueds.forEach((fild) => delete quryObj[fild]);
     const quryStr = JSON.stringify(quryObj).replace(
       /\b(gte|gt|lte|lt)\b/g,
@@ -73,12 +73,12 @@ class ApiFeatures {
 
   serch() {
     // serching
-    if (this.quryString.q) {
+    if (this.quryString.keyword) {
       const qury = {};
       qury.$or = [
-        { title: { $regex: this.quryString.q, $options: "i" } },
-        { description: { $regex: this.quryString.q, $options: "i" } },
-        { name: { $regex: this.quryString.q, $options: "i" } },
+        { title: { $regex: this.quryString.keyword, $options: "i" } },
+        { description: { $regex: this.quryString.keyword, $options: "i" } },
+        { name: { $regex: this.quryString.keyword, $options: "i" } },
       ];
       this.mongooseQuery = this.mongooseQuery.find(qury);
     }

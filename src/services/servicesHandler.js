@@ -25,6 +25,7 @@ exports.updateOneById = (Model) =>
         new ApiError(`can't find document and update with this id: ${id}`, 404)
       );
     }
+    res.status(200).json({ data: document });
   });
 
 exports.deleteOneById = (Model) =>
@@ -36,11 +37,12 @@ exports.deleteOneById = (Model) =>
         new ApiError(`can't find document and delete with this id: ${id}`, 404)
       );
     }
+    res.status(204).json({});
   });
 
 exports.getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
-    const docCount = Model.countDocuments();
+    const docCount = await Model.countDocuments();
     const apiFeatures = new ApiFeatures(Model.find(), req.query)
       .filter()
       .limitFildes()
@@ -53,7 +55,7 @@ exports.getAll = (Model) =>
       return next(new ApiError(`no data found`, 404));
     }
     res.status(200).json({
-      results: docCount,
+      results: document.length,
       pagenation,
       data: document,
     });
