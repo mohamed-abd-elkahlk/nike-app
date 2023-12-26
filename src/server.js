@@ -27,6 +27,7 @@ app.all("*", (req, res, next) => {
 // error handel
 app.use(require("./middlewares/error.middlewares"));
 const port = process.env.PORT || 8000;
+
 const server = app.listen(port, () => {
   console.log(`app runnig on http://localhost:${port}`);
 });

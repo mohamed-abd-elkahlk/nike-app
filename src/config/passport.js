@@ -3,7 +3,10 @@ const JwtStartgy = require("passport-jwt").Strategy;
 const fs = require("fs");
 const path = require("path");
 const User = require("../modules/user.module");
-const publicKey = fs.readFileSync(path.join(__dirname, "../../id_EC_pup.pem"));
+const publicKey = fs.readFileSync(
+  path.join(__dirname, "../../id_EC_pup.pem"),
+  "utf-8"
+);
 
 const extractCookies = (req) => {
   let token;
