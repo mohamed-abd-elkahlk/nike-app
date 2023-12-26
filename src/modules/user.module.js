@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   password: { type: String, required: true },
-  salt: String,
   avater: String,
   active: {
     type: Boolean,
@@ -34,7 +33,6 @@ const userSchema = new mongoose.Schema({
       id: { type: mongoose.Schema.Types.ObjectId },
       alias: String,
       details: String,
-      phone: String,
       city: String,
       postalCode: String,
     },

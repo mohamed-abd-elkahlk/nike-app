@@ -42,4 +42,13 @@ exports.genPasswordHash = (password) => {
 
 exports.verifyPasswordHash = (password, hashedPassword) => {
   const match = bcrypt.compareSync(password, hashedPassword);
+  return match;
+};
+
+exports.genrateMagicLink = (email) => {
+  const token = jwt.sign({ email }, privteKey, {
+    algorithm: "ES256",
+    expiresIn: "1h",
+  });
+  return `${process.env.BASE_URL}/api/auth/verify?token=${token}`;
 };

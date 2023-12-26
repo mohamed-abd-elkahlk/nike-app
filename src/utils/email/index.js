@@ -16,7 +16,7 @@ const sendEmail = async (options) => {
     from: "Nike App <contact@info.com>",
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    html: options.message,
   };
 
   await transporter.sendMail(mailOpts);
