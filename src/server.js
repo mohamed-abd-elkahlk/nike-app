@@ -3,7 +3,8 @@ const morgan = require("morgan");
 const dbConnection = require("./config/dbConnction");
 const { ApiError } = require("./utils");
 const routes = require("./routes");
-
+const passport = require("passport");
+const startgy = require("./config/passport");
 const app = exprees();
 
 // DataBase connction function
@@ -12,6 +13,8 @@ dbConnection();
 // some middlewers
 process.env.MODE === "devlopment" ? app.use(morgan("dev")) : "";
 app.use(exprees.json());
+passport.use(startgy);
+app.use(passport.initialize());
 // routes
 app.use("/api/v1", routes);
 
