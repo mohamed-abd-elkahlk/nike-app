@@ -29,7 +29,6 @@ exports.issueJwt = (user) => {
 
 exports.verfiyToken = (jwtToken) => {
   const docodeToken = jwt.verify(jwtToken, publicKey);
-
   return docodeToken;
 };
 

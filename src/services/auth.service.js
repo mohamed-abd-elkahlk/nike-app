@@ -56,7 +56,15 @@ exports.signUp = asyncHandeler(async (req, res, next) => {
     return next(new ApiError(err, 500));
   }
 });
-exports.verfiy = asyncHandeler(async (req, res, next) => {});
+exports.verfiy = asyncHandeler(async (req, res, next) => {
+  const { token } = req.params;
+  const isVarfiyed = verfiyToken(token);
+  if (!isVarfiyed) {
+    return next(new ApiError("token expired", 404));
+  }
+
+  res.status(200).json({ success: true });
+});
 exports.login = asyncHandeler(async (req, res, next) => {
   const user = await User.find({ contanct_info: { email: req.body.email } });
   if (!user) {
@@ -75,4 +83,20 @@ exports.login = asyncHandeler(async (req, res, next) => {
     .cookie("jwt", token, { httpOnly: true, sameSite: true })
     .json({ data: user });
 });
-exports.logOut = asyncHandeler(async (req, res, next) => {});
+exports.logout = asyncHandeler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return new ApiError("you are not loged in so you can't logout");
+  }
+  res.status(204).clearCookie("jwt").json({ success: true });
+});
+
+exports.allowedTo = (...roles) =>
+  asyncHandeler(async (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ApiError("You are not allowed to access this route", 403)
+      );
+    }
+    next();
+  });
