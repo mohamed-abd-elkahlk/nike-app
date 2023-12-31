@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { genPasswordHash } = require("../utils/auth");
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -37,6 +38,20 @@ const userSchema = new mongoose.Schema({
       postalCode: String,
     },
   ],
+  passwordResetCode: String,
+  passwordResetExpires: String,
+  passwordResetVerified: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password")) return next();
+  const password = genPasswordHash(this.password);
+  this.password = password.hashedPassword;
+
+  next();
 });
 
 const User = mongoose.model("User", userSchema);
