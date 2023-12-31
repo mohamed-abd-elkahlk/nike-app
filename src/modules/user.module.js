@@ -17,11 +17,9 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   contanct_info: {
-    phone: [
-      {
-        type: String,
-      },
-    ],
+    phone: {
+      type: String,
+    },
     email: String,
   },
   role: {
