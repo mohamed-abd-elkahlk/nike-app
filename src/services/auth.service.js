@@ -63,8 +63,12 @@ exports.verfiy = asyncHandeler(async (req, res, next) => {
   if (!isVarfiyed) {
     return next(new ApiError("token expired", 404));
   }
-
-  res.status(200).json({ success: true });
+  const user = await User.findByIdAndUpdate(
+    isVarfiyed.id,
+    { active: true },
+    { new: true }
+  );
+  res.status(200).json({ success: true, data: user });
 });
 exports.login = asyncHandeler(async (req, res, next) => {
   const user = await User.find({ contanct_info: { email: req.body.email } });
