@@ -62,22 +62,14 @@ exports.createUserValidator = [
 ];
 exports.updateUserValidator = [
   check("id").notEmpty().isMongoId(),
-  check("f_name")
-    .optional()
-    .withMessage("first name should have a value")
-    .isString(),
-  check("l_name")
-    .optional()
-    .withMessage("first name should have a value")
-    .isString(),
+  check("f_name").optional().isString(),
+  check("l_name").optional().isString(),
   check("password")
     .optional()
-    .withMessage("you should write password")
     .isLength({ min: 6, max: 30 })
     .withMessage("password must contain at least 6 curcuter"),
   check("email")
     .optional()
-    .withMessage("you must write your email")
     .isEmail()
     .withMessage("you should wirte a valied email")
     .custom((val) =>
@@ -88,7 +80,6 @@ exports.updateUserValidator = [
         throw new Error("this email is used before please try anohter one ");
       })
     ),
-  check("role").optional(),
   validationMiddleware,
 ];
 
