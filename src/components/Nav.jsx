@@ -2,6 +2,7 @@ import { headerLogo } from "../assets/images";
 import { hamburger } from "../assets/icons";
 import { navLinks } from "../constants";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Nav = () => {
   const [toggle, setToggle] = useState(false);
   return (
@@ -22,7 +23,7 @@ const Nav = () => {
             </li>
           ))}
           <li className="font-montserrat leading-normal text-lg  font-extrabold">
-            <a href="/">login/signup</a>
+            <Link to="/login">login/signup</Link>
           </li>
         </ul>
         <div className="hidden max-lg:block cursor-pointer">
